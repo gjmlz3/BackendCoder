@@ -1,1 +1,0 @@
-[{"title":"Nuevo título","description":"Variegado","price":15.99,"thumbnail":"imagen no disponible","code":"p1","stock":100,"id":1},{"title":"Flor de la paz","description":"Cuidado Moderado","price":200,"thumbnail":"imagen no disponible","code":"p3","stock":250,"id":3}]
