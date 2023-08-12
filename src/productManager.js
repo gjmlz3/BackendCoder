@@ -1,15 +1,18 @@
 import { promises as fs } from 'fs';
+import { v4 as uuidv4 } from 'uuid';
 
 export class ProductManager {
-  // Constructor de la clase ProductManager
   constructor(filePath) {
-    this.filePath = filePath;      // Ruta del archivo de productos
-    this.products = [];            // Arreglo para almacenar los productos
-    this.productIdCounter = 1;     // Contador para generar IDs únicos
+    this.filePath = filePath;
+    this.products = [];
+    this.productIdCounter = 1;
   }
 
-  // Método para agregar un nuevo producto
   async addProduct(productData) {
+    if (!this.products.length) {
+      await this.readProductsFromFile();
+    }
+
     if (
       !productData.title ||
       !productData.description ||
@@ -18,37 +21,32 @@ export class ProductManager {
       !productData.code ||
       !productData.stock
     ) {
-      console.log('Faltan campos obligatorios');
-      return;
+      throw new Error('Faltan campos obligatorios');
     }
 
     const codigo = productData.code;
     const productoExistente = this.products.find((producto) => producto.code === codigo);
     if (productoExistente) {
-      console.log('El código del producto ya existe');
-      return;
+      throw new Error('El código del producto ya existe');
     }
 
     const productoConId = {
       ...productData,
-      id: this.productIdCounter,
+      id: uuidv4(),
     };
-    this.productIdCounter++;
 
     this.products.push(productoConId);
 
-    await this.saveProductsToFile();  // Guardar los productos en el archivo
+    await this.saveProductsToFile();
   }
 
-  // Método para obtener la lista de productos, opcionalmente con un límite
   async getProducts(limit = 0) {
-    await this.readProductsFromFile();  // Leer los productos desde el archivo
+    await this.readProductsFromFile();
     return limit ? this.products.slice(0, limit) : this.products;
   }
 
-  // Método para obtener un producto por su ID
   async getProductById(id) {
-    await this.readProductsFromFile();  // Leer los productos desde el archivo
+    await this.readProductsFromFile();
     const producto = this.products.find((producto) => producto.id === id);
     if (!producto) {
       console.error('No encontrado');
@@ -57,9 +55,8 @@ export class ProductManager {
     return producto;
   }
 
-  // Método para actualizar un producto por su ID
   async updateProduct(id, updatedData) {
-    await this.readProductsFromFile();  // Leer los productos desde el archivo
+    await this.readProductsFromFile();
 
     const productoExistente = this.products.find((producto) => producto.id === id);
     if (!productoExistente) {
@@ -77,14 +74,13 @@ export class ProductManager {
       producto.id === id ? productoActualizado : producto
     );
 
-    await this.saveProductsToFile();  // Guardar los productos actualizados en el archivo
+    await this.saveProductsToFile();
 
     console.log('Producto actualizado satisfactoriamente');
   }
 
-  // Método para eliminar un producto por su ID
   async deleteProduct(id) {
-    await this.readProductsFromFile();  // Leer los productos desde el archivo
+    await this.readProductsFromFile();
 
     const index = this.products.findIndex((producto) => producto.id === id);
 
@@ -95,12 +91,11 @@ export class ProductManager {
 
     this.products.splice(index, 1);
 
-    await this.saveProductsToFile();  // Guardar los productos actualizados en el archivo
+    await this.saveProductsToFile();
 
     console.log('Producto eliminado satisfactoriamente');
   }
 
-  // Método para leer los productos desde el archivo
   async readProductsFromFile() {
     try {
       const productsFromTxt = await fs.readFile(this.filePath, 'utf-8');
@@ -111,7 +106,6 @@ export class ProductManager {
     }
   }
 
-  // Método para guardar los productos en el archivo
   async saveProductsToFile() {
     try {
       await fs.writeFile(this.filePath, JSON.stringify(this.products));
