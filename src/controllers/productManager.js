@@ -51,7 +51,7 @@ export class ProductManager {
     if (!producto) {
       console.error('No encontrado');
       return null;
-    }
+    }    
     return producto;
   }
 
@@ -98,8 +98,8 @@ export class ProductManager {
 
   async readProductsFromFile() {
     try {
-      const productsFromTxt = await fs.readFile(this.filePath, 'utf-8');
-      this.products = JSON.parse(productsFromTxt);
+      const productsFromJson = await fs.readFile(this.filePath, 'utf-8');
+      this.products = JSON.parse(productsFromJson);
     } catch (error) {
       console.error('Error al leer los productos del archivo:', error.message);
       this.products = [];
@@ -108,7 +108,7 @@ export class ProductManager {
 
   async saveProductsToFile() {
     try {
-      await fs.writeFile(this.filePath, JSON.stringify(this.products));
+      await fs.writeFile(this.filePath, JSON.stringify(this.products, null, 2));
     } catch (error) {
       console.error('Error al guardar los productos en el archivo:', error.message);
     }

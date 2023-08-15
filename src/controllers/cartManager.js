@@ -47,8 +47,8 @@ export class CartManager {
 
   async readCartsFromFile() {
     try {
-      const cartsFromTxt = await fs.readFile(this.filePath, 'utf-8');
-      this.carts = JSON.parse(cartsFromTxt);
+      const cartsFromJson = await fs.readFile(this.filePath, 'utf-8');
+      this.carts = JSON.parse(cartsFromJson);
     } catch (error) {
       console.error('Error al leer los carritos del archivo:', error.message);
       this.carts = [];
@@ -57,7 +57,7 @@ export class CartManager {
 
   async saveCartsToFile() {
     try {
-      await fs.writeFile(this.filePath, JSON.stringify(this.carts));
+      await fs.writeFile(this.filePath, JSON.stringify(this.carts, null, 2));
     } catch (error) {
       console.error('Error al guardar los carritos en el archivo:', error.message);
     }

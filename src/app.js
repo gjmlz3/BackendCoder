@@ -11,8 +11,8 @@ app.use(express.urlencoded({ extended: true }));
 // Registra el router de carritos en el servidor
 app.use('/api/carts', cartRouter);
 
-const productFilePath = 'src/models/product.txt';
-const cartFilePath = 'src/models/cart.txt';
+const productFilePath = 'src/models/product.json';
+const cartFilePath = 'src/models/cart.json';
 
 const productManager = new ProductManager(productFilePath);
 const cartManager = new CartManager(cartFilePath);

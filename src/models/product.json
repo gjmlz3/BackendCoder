@@ -1,0 +1,49 @@
+{
+    "products": [
+      {
+        "title": "Potus",
+        "description": "Variegado",
+        "price": 15.99,
+        "thumbnail": "imagen no disponible",
+        "code": "p1",
+        "stock": 100,
+        "id": 1
+      },
+      {
+        "title": "Monstera",
+        "description": "Cuidado Dificil",
+        "price": 400,
+        "thumbnail": "imagen no disponible",
+        "code": "p2",
+        "stock": 2520,
+        "id": 2
+      },
+      {
+        "title": "Flor de la paz",
+        "description": "Cuidado Moderado",
+        "price": 200,
+        "thumbnail": "imagen no disponible",
+        "code": "p3",
+        "stock": 250,
+        "id": 3
+      },
+      {
+        "title": "Dieffenbachia",
+        "description": "Cuidado Moderado",
+        "price": 900,
+        "thumbnail": "imagen no disponible",
+        "code": "p4",
+        "stock": 1250,
+        "id": 4
+      },
+      {
+        "title": "Rosario",
+        "description": "Cuidado Facil",
+        "price": 1900,
+        "thumbnail": "imagen no disponible",
+        "code": "p5",
+        "stock": 1250,
+        "id": 5
+      }
+    ]
+  }
